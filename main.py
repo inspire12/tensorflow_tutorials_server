@@ -1,3 +1,5 @@
+import os
+
 import tornado.ioloop
 import tornado.web
 
@@ -5,20 +7,11 @@ from controller.gan_controller import GanController
 from controller.test_controller import MainHandler
 from controller.test_controller import TestController
 
-class ImageViewController(tornado.web.RequestHandler):
-    def get(self):
-        self.set_header("Content-Length", 42)
-        self.set_header("Content-Type", "image/gif")
-        self.set_header("Pragma", "no-cache")
-        self.set_header("Cache-Control",
-                        "no-store, "
-                        "no-cache=Set-Cookie, "
-                        "proxy-revalidate, "
-                        "max-age=0, "
-                        "post-check=0, pre-check=0"
-                        )
-        self.set_header("Expires", "Wed, 2 Dec 1837 21:00:12 GMT")
-        self.write(self.pixel_binary)
+class imageViewController(tornado.web.StaticFileHandler):
+    def parse_url_path(self, url_path: str):
+        return url_path
+
+
 
 
 def make_app():
@@ -26,7 +19,7 @@ def make_app():
         (r"/", MainHandler),
         (r"/test", TestController),
         (r"/gan", GanController),
-        (r"/img", ImageViewController)
+        (r"/gan/(.*)",imageViewController , {'path': os.path.join(os.path.abspath("./"), "resource", "tmp_img")})
     ])
 
 if __name__ == "__main__":
