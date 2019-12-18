@@ -13,9 +13,9 @@ class GanController(tornado.web.RequestHandler):
 
     def get(self):
         try:
-            path = 'transfer.png'
+            # path = 'transfer.png'
             self.add_header('Content-Type', self.gan_service.get_content_type())
-            self.write(self.gan_service.view_img(path))
+            self.write(self.gan_service.transferred_path())
         except:
             raise tornado.web.HTTPError(status_code=404)
 

@@ -6,6 +6,8 @@ import tornado.web
 from controller.gan_controller import GanController
 from controller.test_controller import MainHandler
 from controller.test_controller import TestController
+from controller.word_controller import WordController
+
 
 class imageViewController(tornado.web.StaticFileHandler):
     def parse_url_path(self, url_path: str):
@@ -19,7 +21,9 @@ def make_app():
         (r"/", MainHandler),
         (r"/test", TestController),
         (r"/gan", GanController),
-        (r"/gan/(.*)",imageViewController , {'path': os.path.join(os.path.abspath("./"), "resource", "tmp_img")})
+        (r"/gan/(.*)",imageViewController , {'path': os.path.join(os.path.abspath("./"), "resource", "tmp_img")}),
+        (r"/word/embeddings", WordController)
+
     ])
 
 if __name__ == "__main__":

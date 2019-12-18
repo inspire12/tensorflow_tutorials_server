@@ -12,7 +12,10 @@ import matplotlib as mpl
 import numpy as np
 import PIL.Image
 
-
+''' 
+keras
+https://www.tensorflow.org/tutorials/generative/style_transfer
+'''
 class GanService:
     def __init__(self):
         mpl.rcParams['figure.figsize'] = (12,12)
@@ -22,17 +25,12 @@ class GanService:
         pass
 
     def run(self, content_name='target1.png', style_name='styles.jpg'):
-        # local image
-
-        print(self.root_path)
-
         content_path = os.path.join(self.root_path, 'resource', 'img', content_name)
-        print(content_path)
+        # print(content_path)
         if not os.path.exists(content_path):
             content_path  = tf.keras.utils.get_file(os.path.join(self.root_path, 'resource', 'tmp_img', 'target.png'), content_name)
-
         style_path = os.path.join(self.root_path, 'resource', 'img', style_name)
-        print(style_path)
+        # print(style_path)
         if not os.path.exists(style_path):
             style_path = tf.keras.utils.get_file(os.path.join(self.root_path, 'resource', 'tmp_img', 'style.png'), style_name)
 
@@ -89,8 +87,8 @@ class GanService:
             tensor = tensor[0]
         return PIL.Image.fromarray(tensor)
 
-    def view_img(self, path):
-        file_location = self.transfer_url
+    def transferred_path(self):
+        return self.transfer_url
 
     def get_content_type(self):
         content_type, _ = guess_type(self.transfer_url)
