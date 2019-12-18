@@ -11,12 +11,13 @@ import matplotlib as mpl
 
 import numpy as np
 import PIL.Image
-
 ''' 
 keras
 https://www.tensorflow.org/tutorials/generative/style_transfer
 '''
-class GanService:
+
+
+class GanStyleTransferService:
     def __init__(self):
         mpl.rcParams['figure.figsize'] = (12,12)
         mpl.rcParams['axes.grid'] = False

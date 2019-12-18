@@ -3,13 +3,13 @@ import os
 
 import tornado
 
-from service.gan_service import GanService
+from service.gan_deepdream_service import GanDeepdreamService
 
 
-class GanController(tornado.web.RequestHandler):
+class GanDeepdreamController(tornado.web.RequestHandler):
 
     def initialize(self):
-        self.gan_service = GanService()
+        self.gan_service = GanDeepdreamService()
 
     def get(self):
         try:
@@ -20,9 +20,8 @@ class GanController(tornado.web.RequestHandler):
             raise tornado.web.HTTPError(status_code=404)
 
     def post(self):
-        target = self.get_argument('target')
-        style = self.get_argument('style')
-        result = json.dumps({"image_url": self.gan_service.run(target, style)})
+        result = json.dumps({"image_url": ""})
+        self.gan_service.run_deepdream()
         self.write(result)
 
 
