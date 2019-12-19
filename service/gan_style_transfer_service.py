@@ -35,7 +35,8 @@ class GanStyleTransferService:
         if not os.path.exists(style_path):
             style_path = tf.keras.utils.get_file(os.path.join(self.root_path, 'resource', 'tmp_img', 'style.png'), style_name)
 
-        return self.__transfer_image(content_path, style_path)
+        self.__transfer_image(content_path, style_path)
+        return "/gan/result/transfer.png"
 
     def __transfer_image(self, content_path, style_path):
         content_image = self.load_img(content_path)

@@ -20,8 +20,9 @@ class GanStyleTransferController(tornado.web.RequestHandler):
             raise tornado.web.HTTPError(status_code=404)
 
     def post(self):
-        target = self.get_argument('target')
-        style = self.get_argument('style')
+        request = json.loads(self.request.body)
+        target = request.get('target', None)
+        style = request.get('style', None)
         result = json.dumps({"image_url": self.gan_service.run(target, style)})
         self.write(result)
 
